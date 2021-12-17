@@ -1,31 +1,39 @@
 package be.cegeka.battle;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class SoldierTest {
+class SoldierTest {
 
     @Test
-    public void construction_ASoldierMustHaveAName() {
+    void construction_aSoldierMustHaveAName() {
         Soldier soldier = new Soldier("name");
 
         assertThat(soldier.getName()).isEqualTo("name");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void construction_ASoldierMustHaveAName_CannotBeNull() {
-        new Soldier(null);
+    @Test
+    void construction_aSoldierMustHaveAName_cannotBeNull() {
+        assertThatThrownBy(() -> new Soldier(null))
+                .hasMessage("A soldier must have a name")
+                .hasCauseExactlyInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void construction_ASoldierMustHaveAName_CannotBeEmpty() {
-        new Soldier("");
+    @Test
+    void construction_aSoldierMustHaveAName_cannotBeEmpty() {
+        assertThatThrownBy(() -> new Soldier(""))
+                .hasMessage("A soldier must have a name")
+                .hasCauseExactlyInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void construction_ASoldierMustHaveAName_CannotBeBlank() {
-        new Soldier("   ");
+    @Test
+    void construction_aSoldierMustHaveAName_cannotBeBlank() {
+        assertThatThrownBy(() -> new Soldier("     "))
+                .hasMessage("A soldier must have a name")
+                .hasCauseExactlyInstanceOf(IllegalArgumentException.class);
     }
 
 }

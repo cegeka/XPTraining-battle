@@ -1,15 +1,16 @@
 package be.cegeka.battle;
 
-import org.apache.commons.lang3.Validate;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import com.google.common.base.Strings;
 
 public class Soldier {
 
-    private String name;
+    private final String name;
 
     public Soldier(String name) {
-        Validate.isTrue(isNotBlank(name));
+        if (Strings.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException();
+        }
 
         this.name = name;
     }
