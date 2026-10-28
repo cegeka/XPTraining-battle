@@ -1,6 +1,8 @@
 package be.cegeka.battle;
 
 
+import be.cegeka.battle.weapon.BareFist;
+import be.cegeka.battle.weapon.Weapon;
 import com.google.common.base.Strings;
 
 import java.util.Objects;
@@ -16,7 +18,7 @@ public class Soldier {
         validateName(name);
 
         this.name = name;
-        this.weapon = Weapon.BARE_FIST;
+        this.weapon = new BareFist();
     }
 
     private static void validateName(String name) {
@@ -52,7 +54,7 @@ public class Soldier {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Soldier soldier = (Soldier) o;
-        return Objects.equals(name, soldier.name) && weapon == soldier.weapon;
+        return Objects.equals(name, soldier.name) && Objects.equals(weapon, soldier.weapon);
     }
 
     @Override

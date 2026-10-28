@@ -14,7 +14,8 @@ public class War {
         Optional<Soldier> attackerFrontMan = attacker.getFrontMan();
         Optional<Soldier> defenderFrontMan = defender.getFrontMan();
         if (attackerFrontMan.isPresent() && defenderFrontMan.isPresent()) {
-            return startFrontMenFight(attacker, defender, attackerFrontMan.get(), defenderFrontMan.get());
+            startFrontMenFight(attacker, defender, attackerFrontMan.get(), defenderFrontMan.get());
+            return determineVictor(attacker, defender);
         }
 
         if (attackerFrontMan.isEmpty()) {
@@ -26,14 +27,13 @@ public class War {
         }
     }
 
-    private Army startFrontMenFight(Army attacker, Army defender, Soldier attackerFrontMan, Soldier defenderFrontMan) {
+    private void startFrontMenFight(Army attacker, Army defender, Soldier attackerFrontMan, Soldier defenderFrontMan) {
         Fight fight = new Fight(attackerFrontMan, defenderFrontMan);
         if (fight.didAttackerWin()) {
             defender.killFrontMan();
         } else {
             attacker.killFrontMan();
         }
-        return determineVictor(attacker, defender);
     }
 
     public Army getVictor() {

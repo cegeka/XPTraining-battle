@@ -1,5 +1,8 @@
 package be.cegeka.battle;
 
+import be.cegeka.battle.weapon.Axe;
+import be.cegeka.battle.weapon.Sword;
+import be.cegeka.battle.weapon.Trident;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,14 +14,14 @@ import java.util.stream.Stream;
 class FightTest {
 
     public static Stream<Arguments> fightDifferentStrength() {
-        Soldier str3 = new Soldier("name");
-        str3.equip(Weapon.AXE);
+        Soldier str9 = new Soldier("name");
+        str9.equip(new Trident());
         Soldier str2 = new Soldier("name");
-        str2.equip(Weapon.SWORD);
+        str2.equip(new Sword());
         Soldier str1 = new Soldier("name");
         return Stream.of(
-                Arguments.of(str3, str2, str3),
-                Arguments.of(str2, str3, str3),
+                Arguments.of(str9, str2, str9),
+                Arguments.of(str2, str9, str9),
                 Arguments.of(str2, str1, str2),
                 Arguments.of(str1, str2, str2)
         );
@@ -36,9 +39,36 @@ class FightTest {
     @Test
     public void fight_twoSoldiersWithSameWeaponStrength_AttackerWins() {
         Soldier attacker = new Soldier("name");
-        attacker.equip(Weapon.AXE);
+        attacker.equip(new Axe());
         Soldier defender = new Soldier("name");
-        defender.equip(Weapon.AXE);
+        defender.equip(new Axe());
+
+        Fight fight = new Fight(attacker, defender);
+        Soldier actual = fight.getWinner();
+
+        Assertions.assertThat(actual).isEqualTo(attacker);
+    }
+
+    @Test
+    public void fight_attackerCanReceiveBonusPowerIfWeaponTypeMatchupBeneficial() {
+        //Swords receive +3 bonus vs axes, making sword power 5 vs the axe power of 3
+        Soldier attacker = new Soldier("name");
+        attacker.equip(new Sword());
+        Soldier defender = new Soldier("name");
+        defender.equip(new Axe());
+
+        Fight fight = new Fight(attacker, defender);
+        Soldier actual = fight.getWinner();
+
+        Assertions.assertThat(actual).isEqualTo(attacker);
+    }
+
+    @Test
+    public void fight_defenderCanNOTReceiveBonusPowerIfWeaponTypeMatchupBeneficial() {
+        Soldier attacker = new Soldier("name");
+        attacker.equip(new Axe());
+        Soldier defender = new Soldier("name");
+        defender.equip(new Sword());
 
         Fight fight = new Fight(attacker, defender);
         Soldier actual = fight.getWinner();

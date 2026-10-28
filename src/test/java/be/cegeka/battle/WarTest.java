@@ -1,5 +1,10 @@
 package be.cegeka.battle;
 
+import be.cegeka.battle.weapon.Axe;
+import be.cegeka.battle.weapon.BareFist;
+import be.cegeka.battle.weapon.Sword;
+import be.cegeka.battle.weapon.Trident;
+import be.cegeka.battle.weapon.Weapon;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,9 +29,9 @@ class WarTest {
         Headquarters defenderHeadquarters = createHeadquartersEnlisting(5, 6, 7, 8);
 
         return Arguments.of(
-                createArmyWithSoldiers(attackerHeadquarters, createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.SWORD), createSoldierWithWeapon(Weapon.AXE)),
-                createArmyWithSoldiers(defenderHeadquarters, createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.SWORD)),
-                createExpectedArmyWithSoldiers(createSoldierWithWeapon(Weapon.SWORD), createSoldierWithWeapon(Weapon.AXE)),
+                createArmyWithSoldiers(attackerHeadquarters, createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new Sword()), createSoldierWithWeapon(new Axe())),
+                createArmyWithSoldiers(defenderHeadquarters, createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new Sword())),
+                createExpectedArmyWithSoldiers(createSoldierWithWeapon(new Sword()), createSoldierWithWeapon(new Axe())),
                 attackerHeadquarters,
                 defenderHeadquarters,
                 List.of(1),
@@ -39,9 +44,9 @@ class WarTest {
         Headquarters defenderHeadquarters = createHeadquartersEnlisting(5, 6, 7);
 
         return Arguments.of(
-                createArmyWithSoldiers(attackerHeadquarters, createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.SWORD)),
-                createArmyWithSoldiers(defenderHeadquarters, createSoldierWithWeapon(Weapon.BARE_FIST), createSoldierWithWeapon(Weapon.SWORD), createSoldierWithWeapon(Weapon.AXE)),
-                createExpectedArmyWithSoldiers(createSoldierWithWeapon(Weapon.AXE)),
+                createArmyWithSoldiers(attackerHeadquarters, createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new Sword())),
+                createArmyWithSoldiers(defenderHeadquarters, createSoldierWithWeapon(new BareFist()), createSoldierWithWeapon(new Sword()), createSoldierWithWeapon(new Trident())),
+                createExpectedArmyWithSoldiers(createSoldierWithWeapon(new Trident())),
                 defenderHeadquarters,
                 attackerHeadquarters,
                 List.of(5, 6),

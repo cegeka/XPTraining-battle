@@ -34,6 +34,17 @@ public class Army {
         }
     }
 
+    public void killFrontMan() {
+        if (!soldiers.isEmpty()) {
+            headquarters.reportCasualty(soldiers.getFirst().getId().orElseThrow());
+            soldiers.removeFirst();
+        }
+    }
+
+    public void reportVictory() {
+        headquarters.reportVictory(soldiers.size());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -44,16 +55,5 @@ public class Army {
     @Override
     public int hashCode() {
         return Objects.hashCode(soldiers);
-    }
-
-    public void killFrontMan() {
-        if (!soldiers.isEmpty()) {
-            headquarters.reportCasualty(soldiers.getFirst().getId().orElseThrow());
-            soldiers.removeFirst();
-        }
-    }
-
-    public void reportVictory() {
-        headquarters.reportVictory(soldiers.size());
     }
 }

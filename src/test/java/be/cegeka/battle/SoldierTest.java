@@ -1,6 +1,8 @@
 package be.cegeka.battle;
 
 
+import be.cegeka.battle.weapon.BareFist;
+import be.cegeka.battle.weapon.Sword;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,16 +42,16 @@ class SoldierTest {
     public void construction_aSoldierMustHaveADefaultWeapon() {
         Soldier soldier = new Soldier("name");
 
-        assertThat(soldier.getWeapon()).isEqualTo(Weapon.BARE_FIST);
+        assertThat(soldier.getWeapon()).isEqualTo(new BareFist());
     }
 
     @Test
     public void equip_shouldChangeWeapon() {
         Soldier soldier = new Soldier("name");
 
-        soldier.equip(Weapon.SWORD);
+        soldier.equip(new Sword());
 
-        assertThat(soldier.getWeapon()).isEqualTo(Weapon.SWORD);
+        assertThat(soldier.getWeapon()).isEqualTo(new Sword());
     }
 
     @Test
